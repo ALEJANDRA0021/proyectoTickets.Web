@@ -1,7 +1,17 @@
+using proyectoTickets.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient("WebApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7153/");
+});
+
+builder.Services.AddScoped<UsuarioService>();
+
 
 var app = builder.Build();
 
