@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proyectoTickets.Web.Models;
 using proyectoTickets.Web.Services;
 
@@ -35,8 +36,16 @@ namespace proyectoTickets.Web.Controllers
 
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categorias = await _categoriaService.GetCategoriasAsync();
-            return View();
+            var model = new Ticket
+            {
+                FechaCreacion = DateTime.Now,
+                Estado = "Abierto"
+            };
+            var usuarios = await _usuarioService.GetUsuariosAsync();
+            var prioridades = await _categoriaService.GetCategoriasAsync();
+            ViewBag.Usuarios = new SelectList(usuarios, "Id", "Nombre");
+            ViewBag.Prioridades = new SelectList(prioridades,"Id","Nombre"); 
+            return View(model);
         }
 
         [HttpPost]
