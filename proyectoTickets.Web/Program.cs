@@ -12,6 +12,12 @@ builder.Services.AddHttpClient("WebApi", client =>
 
 builder.Services.AddScoped<UsuarioService>();
 
+builder.Services.AddScoped<CategoriaService>();
+builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<ComentarioService>();
+builder.Services.AddScoped<HistorialService>();
+builder.Services.AddScoped<EmpleadoService>();
+
 
 var app = builder.Build();
 

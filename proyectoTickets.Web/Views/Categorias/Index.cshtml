@@ -1,0 +1,36 @@
+﻿@model IEnumerable<proyectoTickets.Web.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<h1>Categorías</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CategoriaId)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Prioridad)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CategoriaId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Prioridad)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoriaId" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.CategoriaId" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.CategoriaId" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -16,6 +16,11 @@ namespace proyectoTickets.Web.Services
             return await _httpClient.GetFromJsonAsync<List<Usuario>>("api/Usuarios") ?? new List<Usuario>();
         }
 
+        public async Task<List<Usuario>> GetEmpleadosAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<List<Usuario>>("api/Usuarios/empleados") ?? new List<Usuario>();
+        }
+
         public async Task<Usuario?> GetUsuarioAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Usuario>($"api/Usuarios/{id}");

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<proyectoTickets.Web.Models.ComentarioTicket>
+
+@{
+    ViewData["Title"] = "Comentarios";
+}
+
+<h1>Comentarios</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ticket ID</th>
+            <th>Comentario</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ComentarioId)</td>
+                <td>@Html.DisplayFor(modelItem => item.TicketId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Comentario)</td>
+                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ComentarioId" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.ComentarioId" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.ComentarioId" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
