@@ -1,4 +1,5 @@
-﻿using proyectoTickets.Web.Models;
+﻿using NuGet.Protocol.Plugins;
+using proyectoTickets.Web.Models;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -53,7 +54,20 @@ namespace proyectoTickets.Web.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateUsuarioAsync(int id, Usuario usuario)
+		public async Task<LoginResponseModel?> LoginUsuarioAsync(LoginModel model)
+		{
+			model.Password = EncryptToMD5(model.Password);
+			var response = await _httpClient.PostAsJsonAsync("api/Login",model);
+            if (response.IsSuccessStatusCode)
+            {
+				var user = await response.Content.ReadFromJsonAsync<LoginResponseModel>();
+                return user?? null ;
+			}		
+
+			return null;
+		}
+
+		public async Task<bool> UpdateUsuarioAsync(int id, Usuario usuario)
         {
             var response = await _httpClient.PutAsJsonAsync($"api/Usuarios/{id}", usuario);
             return response.IsSuccessStatusCode;
