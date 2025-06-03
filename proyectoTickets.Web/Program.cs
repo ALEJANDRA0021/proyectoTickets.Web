@@ -17,6 +17,7 @@ builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<ComentarioService>();
 builder.Services.AddScoped<HistorialService>();
 builder.Services.AddScoped<EmpleadoService>();
+builder.Services.AddSession();
 
 
 var app = builder.Build();
@@ -33,6 +34,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();   
 
 app.UseAuthorization();
 

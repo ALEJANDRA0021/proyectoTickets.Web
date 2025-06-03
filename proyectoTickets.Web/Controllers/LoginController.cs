@@ -34,12 +34,23 @@ namespace proyectoTickets.Web.Controllers
 				HttpContext.Session.SetString("UserEmail", response.Email);
 				HttpContext.Session.SetString("UserName", response.Nombre);
 				HttpContext.Session.SetString("UserType", response.TipoUsuario);
-
+				if(response.TipoUsuario == "admin")
+				{
+					return RedirectToAction("Index", "Admin");
+				}
+				
 				return RedirectToAction("Index", "Home");
 			}
 
 			ModelState.AddModelError("", "Invalid email or password.");
 			return View(model);
+		}
+
+		[HttpGet]
+		public IActionResult Logout()
+		{
+			HttpContext.Session.Clear();
+			return RedirectToAction("Index", "Login");
 		}
 	}
 }
