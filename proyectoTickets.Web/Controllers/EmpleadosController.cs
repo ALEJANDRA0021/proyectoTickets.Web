@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using proyectoTickets.Web.Filters;
 using proyectoTickets.Web.Models;
 using proyectoTickets.Web.Services;
 
 namespace proyectoTickets.Web.Controllers
 {
+
+    [AdminOnly]
     public class EmpleadosController : Controller
     {
         private readonly EmpleadoService _empleadoService;

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using proyectoTickets.Web.Filters;
 using proyectoTickets.Web.Models;
 using proyectoTickets.Web.Services;
 
 namespace proyectoTickets.Web.Controllers
 {
+
+    [AdminOnly]
     public class TicketsController : Controller
     {
         private readonly TicketService _ticketService;

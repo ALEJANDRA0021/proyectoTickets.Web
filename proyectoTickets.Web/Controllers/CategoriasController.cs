@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using proyectoTickets.Web.Filters;
 using proyectoTickets.Web.Models;
 using proyectoTickets.Web.Services;
 
 namespace proyectoTickets.Web.Controllers
 {
+
+    [AdminOnly]
     public class CategoriasController : Controller
     {
         private readonly CategoriaService _categoriaService;
