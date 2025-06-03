@@ -21,7 +21,7 @@ namespace proyectoTickets.Web.Services
 
         public async Task<List<Usuario>> GetEmpleadosAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<Usuario>>("api/Usuarios/empleados") ?? new List<Usuario>();
+            return await _httpClient.GetFromJsonAsync<List<Usuario>>("api/Usuarios") ?? new List<Usuario>();
         }
 
         public async Task<Usuario?> GetUsuarioAsync(int id)

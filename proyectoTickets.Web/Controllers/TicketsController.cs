@@ -66,8 +66,10 @@ namespace proyectoTickets.Web.Controllers
             var ticket = await _ticketService.GetTicketAsync(id);
             if (ticket == null) return NotFound();
 
-            ViewBag.Categorias = await _categoriaService.GetCategoriasAsync();
-            ViewBag.Empleados = await _usuarioService.GetEmpleadosAsync();
+           var categorias = await _categoriaService.GetCategoriasAsync();
+            var empleados = await _usuarioService.GetEmpleadosAsync();
+            ViewBag.Categorias = new SelectList(categorias, "Id", "Nombre");
+            ViewBag.Empleados = new SelectList(empleados.Where(x => x.TipoUsuario=="empleado"), "Id", "Nombre");
 
             return View(ticket);
         }

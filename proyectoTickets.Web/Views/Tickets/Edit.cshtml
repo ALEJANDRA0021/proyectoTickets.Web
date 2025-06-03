@@ -35,19 +35,11 @@
                 </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="ClienteId" />
+          
 
             <div class="form-group">
-                <label asp-for="Prioridad" class="control-label"></label>
-                <select asp-for="Prioridad" class="form-control">
-                    <option value="Baja">Baja</option>
-                    <option value="Media">Media</option>
-                    <option value="Alta">Alta</option>
-                </select>
-                <span asp-validation-for="Prioridad" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label">Categoría</label>
+                <label asp-for="CategoriaId" class="control-label">Prioridad</label>
                 <select asp-for="CategoriaId" class="form-control"
                         asp-items="ViewBag.Categorias"></select>
             </div>
