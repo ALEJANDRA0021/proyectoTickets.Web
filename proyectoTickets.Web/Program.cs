@@ -18,6 +18,7 @@ builder.Services.AddScoped<ComentarioService>();
 builder.Services.AddScoped<HistorialService>();
 builder.Services.AddScoped<EmpleadoService>();
 builder.Services.AddSession();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 var app = builder.Build();
