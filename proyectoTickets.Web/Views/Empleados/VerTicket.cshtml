@@ -8,6 +8,21 @@
         <p><strong>Descripción:</strong> @Model.Ticket.Descripcion</p>
         <p><strong>Fecha de creación:</strong> @Model.Ticket.FechaCreacion.ToString("dd/MM/yyyy")</p>
     </div>
+    <form asp-action="ActualizarEstado" method="post" class="mt-3">
+        <input type="hidden" name="ticketId" value="@Model.Ticket.Id" />
+
+        <div class="mb-3">
+            <label for="estado" class="form-label"><strong>Estado:</strong></label>
+            <select name="nuevoEstado" class="form-select" onchange="this.form.submit()">
+                @foreach (var estado in Model.Estados)
+                {
+                    <option value="@estado" selected="@(estado == Model.Ticket.Estado)">
+                        @estado
+                    </option>
+                }
+            </select>
+        </div>
+    </form>
 </div>
 
 <h3>Comentarios</h3>

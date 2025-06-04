@@ -35,10 +35,23 @@ namespace proyectoTickets.Web.Controllers
             var model = new ComentariosTicketModel
             {
                 Ticket = ticket??new Ticket(),
-                Comentarios = comentarios.Where(c => c.TicketId == id).ToList()
+                Comentarios = comentarios.Where(c => c.TicketId == id).ToList(),
+                Estados  = new List<string> { "Abierto", "En Proceso", "Cerrado" }
             };  
           
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ActualizarEstado(int ticketId, string nuevoEstado)
+        {
+            var ticket = await _ticketService.GetTicketAsync(ticketId);
+            if (ticket != null)
+            {
+                ticket.Estado = nuevoEstado;
+                await _ticketService.UpdateTicketAsync(ticketId,ticket);
+            }
+
+            return RedirectToAction("VerTicket", new { id = ticketId });
         }
         public  IActionResult AgregarComentario(int ticketId)
         {                      
