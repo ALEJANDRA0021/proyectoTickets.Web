@@ -11,6 +11,9 @@
 </div>
 
 <h3>Comentarios</h3>
+<div class="form-group">
+    <a href="@Url.Action("AgregarComentario")?ticketId=@Model.Ticket.Id" class="btn btn-primary">Agregar Comentaro</a>
+</div>
 
 @if (Model.Comentarios.Any())
 {

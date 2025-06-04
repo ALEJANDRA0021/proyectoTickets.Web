@@ -40,5 +40,23 @@ namespace proyectoTickets.Web.Controllers
           
             return View(model);
         }
+        public  IActionResult AgregarComentario(int ticketId)
+        {                      
+            var model = new ComentarioTicket
+            {
+               TicketId = ticketId, 
+               UsuarioId = HttpContext.Session.GetInt32("UserId") ?? 0,
+               Fecha= DateTime.Now
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AgregarComentario(ComentarioTicket model)
+        {
+            await _comentarioService.CreateComentarioAsync(model);
+            return RedirectToAction("VerTicket", new { id=model.TicketId});
+        }
+
     }
 }

@@ -18,24 +18,24 @@ namespace proyectoTickets.Web.Services
 
         public async Task<ComentarioTicket?> GetComentarioAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<ComentarioTicket>($"api/Comentarios/{id}");
+            return await _httpClient.GetFromJsonAsync<ComentarioTicket>($"api/ComentariosTicket/{id}");
         }
 
         public async Task<bool> CreateComentarioAsync(ComentarioTicket comentario)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/Comentarios", comentario);
+            var response = await _httpClient.PostAsJsonAsync("api/ComentariosTicket", comentario);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> UpdateComentarioAsync(int id, ComentarioTicket comentario)
         {
-            var response = await _httpClient.PutAsJsonAsync($"api/Comentarios/{id}", comentario);
+            var response = await _httpClient.PutAsJsonAsync($"api/ComentariosTicket/{id}", comentario);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> DeleteComentarioAsync(int id)
         {
-            var response = await _httpClient.DeleteAsync($"api/Comentarios/{id}");
+            var response = await _httpClient.DeleteAsync($"api/ComentariosTicket/{id}");
             return response.IsSuccessStatusCode;
         }
     }
