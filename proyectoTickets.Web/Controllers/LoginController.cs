@@ -43,7 +43,10 @@ namespace proyectoTickets.Web.Controllers
                 {
                     return RedirectToAction("Index", "Cliente");
                 }
-
+                if (response.TipoUsuario == "empleado")
+                {
+                    return RedirectToAction("Index", "Empleados");
+                }
                 return RedirectToAction("Index", "Home");
 			}
 

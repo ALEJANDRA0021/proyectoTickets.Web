@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proyectoTickets.Web.Filters;
 using proyectoTickets.Web.Models;
 using proyectoTickets.Web.Services;
@@ -6,69 +7,38 @@ using proyectoTickets.Web.Services;
 namespace proyectoTickets.Web.Controllers
 {
 
-    [AdminOnly]
+    [EmpleadoeOnly]
     public class EmpleadosController : Controller
     {
-        private readonly EmpleadoService _empleadoService;
+        private readonly TicketService _ticketService;
+        private readonly CategoriaService _categoriaService;
+        private readonly ComentarioService _comentarioService;
 
-        public EmpleadosController(EmpleadoService empleadoService)
+        public EmpleadosController(TicketService ticketService, CategoriaService categoriaService, ComentarioService comentarioService)
         {
-            _empleadoService = empleadoService;
+            _ticketService = ticketService;
+            _categoriaService = categoriaService;
+           _comentarioService = comentarioService;
+        }
+        public IActionResult Index()
+        {
+            var tickets = _ticketService.GetTicketsAsync();
+            var clientId = HttpContext.Session.GetInt32("UserId");
+            var model = tickets.Result.Where(t => t.EmpleadoAsignadoId == clientId).ToList();
+            return View(model);
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> VerTicket(int id)
         {
-            var empleados = await _empleadoService.GetEmpleadosAsync();
-            return View(empleados);
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var empleado = await _empleadoService.GetEmpleadoAsync(id);
-            if (empleado == null) return NotFound();
-            return View(empleado);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Empleado empleado)
-        {
-            if (!ModelState.IsValid) return View(empleado);
-            await _empleadoService.CreateEmpleadoAsync(empleado);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Edit(int id)
-        {
-            var empleado = await _empleadoService.GetEmpleadoAsync(id);
-            if (empleado == null) return NotFound();
-            return View(empleado);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, Empleado empleado)
-        {
-            if (!ModelState.IsValid) return View(empleado);
-            await _empleadoService.UpdateEmpleadoAsync(id, empleado);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var empleado = await _empleadoService.GetEmpleadoAsync(id);
-            if (empleado == null) return NotFound();
-            return View(empleado);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            await _empleadoService.DeleteEmpleadoAsync(id);
-            return RedirectToAction(nameof(Index));
+            var ticket = await _ticketService.GetTicketAsync(id);
+            var comentarios = await _comentarioService.GetComentariosAsync(id); 
+            var model = new ComentariosTicketModel
+            {
+                Ticket = ticket??new Ticket(),
+                Comentarios = comentarios.Where(c => c.TicketId == id).ToList()
+            };  
+          
+            return View(model);
         }
     }
 }

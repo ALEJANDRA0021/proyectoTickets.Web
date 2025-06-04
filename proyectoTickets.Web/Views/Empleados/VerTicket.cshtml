@@ -1,0 +1,30 @@
+﻿@model proyectoTickets.Web.Models.ComentariosTicketModel
+
+<h2>Detalles del Ticket</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>@Model.Ticket.Titulo</h4>
+        <p><strong>Descripción:</strong> @Model.Ticket.Descripcion</p>
+        <p><strong>Fecha de creación:</strong> @Model.Ticket.FechaCreacion.ToString("dd/MM/yyyy")</p>
+    </div>
+</div>
+
+<h3>Comentarios</h3>
+
+@if (Model.Comentarios.Any())
+{
+    <ul class="list-group">
+        @foreach (var comentario in Model.Comentarios)
+        {
+            <li class="list-group-item">
+                <p>@comentario.Comentario</p>
+                <small class="text-muted">Fecha: @comentario.Fecha </small>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay comentarios para este ticket.</p>
+}

@@ -13,9 +13,9 @@ namespace proyectoTickets.Web.Controllers
             _comentarioService = comentarioService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int ticketId)
         {
-            var comentarios = await _comentarioService.GetComentariosAsync();
+            var comentarios = await _comentarioService.GetComentariosAsync(ticketId);
             return View(comentarios);
         }
 
