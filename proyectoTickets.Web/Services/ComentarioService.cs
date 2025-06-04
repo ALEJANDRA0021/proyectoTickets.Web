@@ -13,7 +13,7 @@ namespace proyectoTickets.Web.Services
 
         public async Task<List<ComentarioTicket>> GetComentariosAsync(int ticketId)
         {
-            return await _httpClient.GetFromJsonAsync<List<ComentarioTicket>>("api/ComentariosTicket?ticketId" +ticketId) ?? new List<ComentarioTicket>();
+            return await _httpClient.GetFromJsonAsync<List<ComentarioTicket>>("api/ComentariosTicket?ticketId=" +ticketId) ?? new List<ComentarioTicket>();
         }
 
         public async Task<ComentarioTicket?> GetComentarioAsync(int id)
